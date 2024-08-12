@@ -4,6 +4,7 @@ import { saveAs } from "file-saver";
 
 const JPGtoPNGConverter = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false); // Loading state
 
   const handleFiles = (files) => {
     const file = files[0];
@@ -14,19 +15,42 @@ const JPGtoPNGConverter = () => {
     }
   };
 
-  const convertToPNG = () => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const img = new Image();
-    img.src = URL.createObjectURL(selectedFile);
-    img.onload = () => {
+  const convertToPNG = async () => {
+    setLoading(true); // Start loading
+    try {
+      const img = new Image();
+      img.src = URL.createObjectURL(selectedFile);
+
+      // Use a Promise to handle image loading
+      await new Promise((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("Failed to load the image."));
+      });
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set canvas dimensions to image dimensions
       canvas.width = img.width;
       canvas.height = img.height;
+
+      // Draw the image on the canvas
       ctx.drawImage(img, 0, 0);
+
+      // Convert canvas to Blob and save as PNG
       canvas.toBlob((blob) => {
-        saveAs(blob, "converted.png");
+        if (blob) {
+          saveAs(blob, "converted.png");
+        } else {
+          throw new Error("Failed to convert the image to PNG.");
+        }
+        setLoading(false); // End loading
       }, "image/png");
-    };
+    } catch (error) {
+      console.error("PNG conversion error:", error);
+      alert(`Failed to convert the image to PNG: ${error.message}`);
+      setLoading(false); // End loading on error
+    }
   };
 
   return (
@@ -53,8 +77,9 @@ const JPGtoPNGConverter = () => {
           <button
             onClick={convertToPNG}
             className="btn btn-secondary btn-outline font-bold"
+            disabled={loading} // Disable button while loading
           >
-            Convert to PNG
+            {loading ? "Converting..." : "Convert to PNG"}
           </button>
         </div>
       )}
