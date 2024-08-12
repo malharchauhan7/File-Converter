@@ -5,10 +5,10 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="flex flex-col gap-10 pt-24 bg-gray-900 h-screen">
+    <div className="flex flex-col gap-10  bg-gray-900 h-screen">
+      <Footer />
       <ImageConverter />
       <JPGtoPNGConverter />
-      <Footer />
     </div>
   );
 }
