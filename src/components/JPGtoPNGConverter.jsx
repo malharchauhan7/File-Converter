@@ -54,7 +54,7 @@ const JPGtoPNGConverter = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-10 bg-gray-900 text-white gap-4">
+    <div className="flex flex-col items-center justify-center p-10 bg-gray-900 text-white gap-4 h-screen">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">
         JPG / JPEG to PNG Converter
       </h1>
