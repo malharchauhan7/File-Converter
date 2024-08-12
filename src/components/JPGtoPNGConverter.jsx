@@ -66,7 +66,7 @@ const JPGtoPNGConverter = () => {
           )}
         </div>
         <FileReader handleFiles={handleFiles}>
-          <button className="btn btn-primary btn-sm md:btn-md font-bold">
+          <button className="btn btn-primary btn-md md:btn-md font-bold">
             Select JPG/JPEG File
           </button>
         </FileReader>
