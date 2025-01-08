@@ -6,12 +6,12 @@ const Header = () => {
       <div>
         <footer>
           <div className="m-10 hover:cursor-pointer duration-300 opacity-50 hover:scale-110 transition-all hover:opacity-100">
-            <a
+            {/* <a
               href="https://github.com/malharchauhan7/File-Converter"
               target="_blank"
             >
               <FaGithubSquare color="white" size={30} />
-            </a>
+            </a> */}
           </div>
         </footer>
       </div>
